@@ -1,11 +1,15 @@
-
 import React from 'react'
-
+import Register from './pages/Register'
+import { Routes,Route } from 'react-router-dom'
 const App = () => {
   return (
-    <div className='bg-white w-full h-screen flex justify-center font-bold border-4 p-5'>
-      Hello
+    <>
+    <div>
+      <Routes>
+        <Route path='/' element={<Register/>} />
+      </Routes>
     </div>
+    </>
   )
 }
 
