@@ -1,7 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  --animate-move-shape: moveShape 3s ease-in infinite alternate;
+  --animate-move-shape: moveShape 4s ease-in infinite alternate;
+  --animate-move-shape2: moveShape2 6s ease-in-out infinite alternate;
+  --animate-move-shape3: moveShape3 5s ease-in-out infinite alternate;
 }
 
 @keyframes moveShape {
@@ -12,9 +14,6 @@
     transform: skewY(-12deg) translate(450px, -70px);
   }
 }
-@theme {
-  --animate-move-shape2: moveShape2 3s ease-in-out infinite alternate;
-}
 
 @keyframes moveShape2 {
   0% {
@@ -24,9 +23,6 @@
     transform: skewY(-12deg) translate(750px, -70px);
   }
 }
-@theme {
-  --animate-move-shape3: moveShape3 3s ease-in-out infinite alternate;
-}
 
 @keyframes moveShape3 {
   0% {
@@ -35,4 +31,9 @@
   100% {
     transform: skewY(-12deg) translate(750px, -70px);
   }
+}
+
+
+.frances{
+  font-family: "Fraunces", serif;
 }
