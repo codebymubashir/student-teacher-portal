@@ -3,12 +3,63 @@ import Registersvg from "../../assets/register svg.png";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import { signInWithPopup, GoogleAuthProvider, getAuth } from 'firebase/auth';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { db } from '../../firebase';
 const Login = () => {
 
 
     const [showPassword, setShowPassword] = useState(false)
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("")
+    const navigate = useNavigate();
+
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+
+        try {
+            const userCrediential = await signInWithEmailAndPassword(auth, email, password);
+            const user = userCrediential.user;
+
+            const studentDocRef = doc(db, "students", user.uid);
+            const studentDocSnap = await getDoc(studentDocRef);
+
+            if (studentDocSnap.exists) {
+                const studentData = studentDocSnap.data();
+                toast.success(`Welcome back!  (${studentData.name})`)
+
+            } else {
+                toast.success("Login Successful!");
+
+            }
+
+            setTimeout(() => navigate('/teacher/login'), 1500)
+
+        } catch (error) {
+            toast.error("User does not exist")
+        }
+    }
+
+
+    const auth = getAuth();
+    const provider = new GoogleAuthProvider();
+
+    const signInWithGoogle = async () => {
+        try {
+            const result = await signInWithPopup(auth, provider);
+            toast.success("Sign in successfully")
+        } catch (error) {
+            console.log("Error sign in with google", error)
+        }
+    }
     return (
         <>
+            <ToastContainer position="top-center" autoClose={3000} />
             <div>
                 <div className='bg-white w-full h-screen relative overflow-hidden'>
                     <div className='w-24 h-6 md:w-52 md:h-10 lg:w-72 lg:h-13 bg-gray-200 -skew-y-12 absolute top-16 md:top-52 lg:top-60 left-4 md:left-8 lg:left-15 animate-move-shape2'></div>
@@ -36,11 +87,13 @@ const Login = () => {
                                 <div className='w-full h-auto p-2  text-center mt-8 mb-7'>
                                     <h2 className='text-4xl frances '>Student Portal</h2>
                                 </div>
-                                <form className="space-y-4">
+                                <form className="space-y-4" onSubmit={handleLogin}>
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-1 ml-2 frnaces ">Email address</label>
                                         <input
                                             type="email"
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
                                             placeholder="Enter your email address"
                                             className="w-95 ml-2 px-4 py-1.5 border border-gray-300 rounded-2xl focus:outline-none  focus:bg-[#e8f0fe] text-sm text-gray-700 placeholder-gray-400" />
                                     </div>
@@ -50,10 +103,14 @@ const Login = () => {
                                             <input
                                                 type={showPassword ? 'text' : 'password'}
                                                 placeholder="*******"
+                                                value={password}
+                                                required
+                                                onChange={(e) => setPassword(e.target.value)}
                                                 aria-label={showPassword ? 'Hide password' : 'Show password'}
                                                 className="w-full px-4 py-1.5 pr-9 border border-gray-300 rounded-2xl focus:outline-none focus:bg-[#e8f0fe] text-sm text-gray-700 placeholder-gray-400" />
                                             <button
                                                 type="button"
+                                                
                                                 onClick={() => setShowPassword(!showPassword)}
                                                 className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">
                                                 {showPassword ? '🙈' : '👁️'}
@@ -70,7 +127,7 @@ const Login = () => {
                                             Forgot password?
                                         </a>
                                     </div>
-                                    <div className='flex flex-row border-2 border-[#526db2] justify-center gap-5  cursor-pointer w-95 ml-2 rounded-full px-4 py-2 '>
+                                    <div onClick={signInWithGoogle} className='flex flex-row border-2 border-[#526db2] justify-center gap-5  cursor-pointer w-95 ml-2 rounded-full px-4 py-2 '>
                                         <p>Login with Google</p>
                                         <FcGoogle size={30} />
                                     </div>

@@ -37,7 +37,7 @@ const Register = () => {
             });
 
             toast.success("Registered Successfully")
-            setTimeout(()=> navigate('/student/login'),1000)
+            setTimeout(()=> navigate('/student/login'),1500)
 
         } catch (error) {
             toast.error(error.message);
