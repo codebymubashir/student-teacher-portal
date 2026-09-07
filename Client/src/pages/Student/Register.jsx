@@ -54,7 +54,7 @@ const Register = () => {
                     <div className='w-20 h-6 md:w-32 md:h-10 lg:w-42 lg:h-13 bg-orange-100 -skew-y-12 absolute top-44 left-4 md:top-20 lg:top-25 md:left-0 animate-move-shape3'></div>
                     <div className='w-24 h-6 md:w-40 md:h-10 lg:w-52 lg:h-13 bg-blue-200 -skew-y-12 absolute bottom-24 left-4 md:bottom-8 lg:bottom-10 md:left-0 animate-move-shape3'></div>
                     <div className='w-24 h-6 md:w-40 md:h-10 lg:w-52 lg:h-13 bg-red-200 -skew-y-12 absolute bottom-8 right-4 md:bottom-12 lg:bottom-15 md:right-10 lg:right-15 animate-move-shape3'></div>
-                    <div className='w-210 h-120 rounded-2xl bg-white shadow-lg absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 '>
+                    <div className='w-210 h-120 rounded-2xl bg-white shadow-xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 '>
                         <div className='w-200 h-110  md:flex md:flex-row  absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white'>
                             <div className='w-[50%] h-full rounded-2xl relative flex-1 bg-[#526DB2] p-6 md:p-8 flex flex-col justify-between md:[clip-path:polygon(0_0,100%_0,94%_100%,0%_100%)]'>
                                 <Link to={"/student/login"}> <div className='flex justify-end'>

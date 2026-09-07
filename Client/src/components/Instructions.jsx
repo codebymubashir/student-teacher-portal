@@ -19,6 +19,8 @@ const Instructions = () => {
                     <li>Make sure your role is selected correctly during registration.</li>
                     <li>Do not share your login credentials with anyone.</li>
                     <li>Contact admin if you face any issue accessing your dashboard.</li>
+                    <li>The student must login with the same email and password after registeration</li>
+                    <li>The teacher email is <span className='underline'>teacher@gmail.com</span> and password is <span className='underline'>teacher1122</span> </li>
                 </ul>
 
                 <div className='flex flex row gap-5'>

@@ -37,3 +37,10 @@
 .frances{
   font-family: "Fraunces", serif;
 }
+
+.dashlogo{
+  background-image: url(https://cdn.leonardo.ai/users/11f5eef8-ac65-4bdc-84ba-537fb9ee5412/generations/1f1aa840-63cf-6820-81f6-41f13e7cc59e/gpt-image-2_Minimalist_vector_logo_mark_for_an_edtech_platform_named_LearnX_featuring_an_abs-0.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

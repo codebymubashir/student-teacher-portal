@@ -29,7 +29,7 @@ const Login = () => {
             const studentDocRef = doc(db, "students", user.uid);
             const studentDocSnap = await getDoc(studentDocRef);
 
-            if (studentDocSnap.exists) {
+            if (studentDocSnap.exists()) {
                 const studentData = studentDocSnap.data();
                 toast.success(`Welcome back!  (${studentData.name})`)
 
@@ -38,7 +38,7 @@ const Login = () => {
 
             }
 
-            setTimeout(() => navigate('/teacher/login'), 1500)
+            setTimeout(() => navigate('/student/portal'), 1500)
 
         } catch (error) {
             toast.error("User does not exist")
@@ -53,6 +53,9 @@ const Login = () => {
         try {
             const result = await signInWithPopup(auth, provider);
             toast.success("Sign in successfully")
+            setTimeout(() => {
+                navigate('/student/portal')
+            }, 1500);
         } catch (error) {
             console.log("Error sign in with google", error)
         }
@@ -67,7 +70,7 @@ const Login = () => {
                     <div className='w-20 h-6 md:w-32 md:h-10 lg:w-42 lg:h-13 bg-orange-100 -skew-y-12 absolute top-44 left-4 md:top-20 lg:top-25 md:left-0 animate-move-shape3'></div>
                     <div className='w-24 h-6 md:w-40 md:h-10 lg:w-52 lg:h-13 bg-blue-200 -skew-y-12 absolute bottom-24 left-4 md:bottom-8 lg:bottom-10 md:left-0 animate-move-shape3'></div>
                     <div className='w-24 h-6 md:w-40 md:h-10 lg:w-52 lg:h-13 bg-red-200 -skew-y-12 absolute bottom-8 right-4 md:bottom-12 lg:bottom-15 md:right-10 lg:right-15 animate-move-shape3'></div>
-                    <div className='w-210 h-120 rounded-2xl bg-white shadow-lg absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 '>
+                    <div className='w-210 h-120 rounded-2xl bg-white shadow-xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 '>
                         <div className='w-200 h-110  md:flex md:flex-row  absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white'>
                             <div className='w-[50%] h-full rounded-2xl relative flex-1 bg-[#526DB2] p-6 md:p-8 flex flex-col justify-between md:[clip-path:polygon(0_0,100%_0,94%_100%,0%_100%)]'>
                                 <Link to={"/student/register"}> <div className='flex justify-end'>
@@ -128,12 +131,12 @@ const Login = () => {
                                         </a>
                                     </div>
                                     <div onClick={signInWithGoogle} className='flex flex-row border-2 border-[#526db2] justify-center gap-5  cursor-pointer w-95 ml-2 rounded-full px-4 py-2 '>
-                                        <p>Login with Google</p>
+                                        <p>Continue with Google</p>
                                         <FcGoogle size={30} />
                                     </div>
                                     <button
                                         type="submit"
-                                        className="w-95 py-4 px-4 ml-2  bg-[#526db2] hover:bg-[#3f5296] text-white font-medium rounded-full text-sm transition-colors shadow-sm">Login</button>
+                                        className="w-95 py-4 px-4 ml-2  bg-[#526db2] hover:bg-[#3f5296] text-white font-medium rounded-full text-sm transition-colors shadow-sm">Sign In</button>
                                 </form>
 
                             </div>
