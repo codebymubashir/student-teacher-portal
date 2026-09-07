@@ -3,22 +3,25 @@ import Loginstudent from './pages/Student/Login'
 import Registerstudent from './pages/Student/Register'
 import Instructions from './components/Instructions'
 import Loginteacher from './pages/Teacher/Login'
-import { Routes,Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import Studentdashboard from './pages/Student/Dashboard/Dashboard'
+import Home from './pages/Student/Dashboard/pages/Home'
 const App = () => {
   return (
     <>
-    <div>
-      <Routes>
-        <Route path='/' element={<Instructions/>} />
-        <Route path='/student/login' element={<Loginstudent/>} />
-        <Route path='/student/register' element={<Registerstudent/>} />
-        <Route path='/student/portal' element={<Studentdashboard/>} />
-      </Routes>
-      <Routes>
-        <Route path='/teacher/login' element={<Loginteacher/>} />
-      </Routes>
-    </div>
+      <div>
+        <Routes>
+          <Route path='/' element={<Instructions />} />
+          <Route path='/student/login' element={<Loginstudent />} />
+          <Route path='/student/register' element={<Registerstudent />} />
+          <Route path='/student/portal' element={<Studentdashboard />}>
+            <Route path='home' element={<Home />} />
+          </Route>
+        </Routes>
+        <Routes>
+          <Route path='/teacher/login' element={<Loginteacher />} />
+        </Routes>
+      </div>
     </>
   )
 }
