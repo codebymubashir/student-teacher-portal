@@ -6,6 +6,7 @@ import Loginteacher from './pages/Teacher/Login'
 import { Routes, Route } from 'react-router-dom'
 import Studentdashboard from './pages/Student/Dashboard/Dashboard'
 import Home from './pages/Student/Dashboard/pages/Home'
+import Coursecontent from './pages/Student/Dashboard/pages/Coursecontent'
 const App = () => {
   return (
     <>
@@ -16,6 +17,7 @@ const App = () => {
           <Route path='/student/register' element={<Registerstudent />} />
           <Route path='/student/portal' element={<Studentdashboard />}>
             <Route path='home' element={<Home />} />
+            <Route path='content' element={<Coursecontent />} />
           </Route>
         </Routes>
         <Routes>

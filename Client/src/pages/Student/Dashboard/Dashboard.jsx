@@ -36,7 +36,7 @@ const Dashboard = () => {
                         <p className='text-md'>Dashboard</p>
                     </NavLink>
                     <NavLink
-                        to={'course-content'}
+                        to={'content'}
                         className={({ isActive }) =>
                             `dashmenu font-semibold p-2 mt-2 flex flex-row items-center gap-2 rounded-xl transition-colors duration-200 ${isActive ? 'bg-[#99b2f1] text-white' : 'text-[#6B7280]'
                             }`
