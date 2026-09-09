@@ -12,6 +12,7 @@ import Fees from './pages/Student/Dashboard/pages/Fees'
 import Leaves from './pages/Student/Dashboard/pages/Leaves'
 import Assignment from './pages/Student/Dashboard/pages/Assignment'
 import Complaint from './pages/Student/Dashboard/pages/Complaint'
+import Profile from './pages/Student/Dashboard/pages/Profile'
 const App = () => {
   return (
     <>
@@ -28,6 +29,7 @@ const App = () => {
             <Route path='leaves' element={<Leaves />} />
             <Route path='assignment' element={<Assignment />} />
             <Route path='complaint' element={<Complaint />} />
+            <Route path='profile' element={<Profile />} />
           </Route>
         </Routes>
         <Routes>
