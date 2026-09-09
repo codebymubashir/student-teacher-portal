@@ -1,33 +1,31 @@
 import React from 'react'
-import { Form } from 'lucide-react';
+import { BookAlert  } from 'lucide-react';
 
-const Assignment = () => {
+const Complaint = () => {
   return (
     <div className="bg-[#F4F6FA] student min-h-screen p-6 font-sans text-slate-800">
 
         {/* Top Banner */}
         <div className='bg-[#9BB2F6] rounded-2xl p-6 text-slate-900 mb-6 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4'>
         <div>
-          <span className="text-xs font-semibold uppercase tracking-wider bg-white/40 px-2.5 py-1 rounded-md">
-            Student Assignments
-          </span>
-          <h1 className="text-2xl font-bold mt-2">Assignments</h1>
-          <p className="text-sm opacity-90 mt-1">View your assignement here. and download the quiz statements.</p>
+          
+          <h1 className="text-2xl font-bold mt-2">Complaints</h1>
+          <p className="text-sm opacity-90 mt-1">View your leave history and download the applications</p>
         </div>
         <button className="bg-slate-900 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow hover:bg-slate-800 transition">
-          Submit Assignment
+          New Complaint
         </button>
       </div>
 
 
 
-      {/* Assignment quiz */}
+      {/*  complaint */}
 
       <div className='bg-[white] rounded-2xl p-4 text-slate-900 mb-6 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4'>
         <div className='w-full h-full border rounded-2xl border-dashed flex justify-center'>
             <div className='text-[#ccd6e2] flex flex-col p-20 '>
-                <Form size={40} className='ml-7'/>
-                <p className=''>No Assignment yet</p>
+                <BookAlert  size={40} className='ml-28'/>
+                <p className=''>You have not submitted any complaints yet</p>
             </div>
 
         </div>
@@ -38,4 +36,4 @@ const Assignment = () => {
   )
 }
 
-export default Assignment
+export default Complaint

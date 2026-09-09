@@ -1,5 +1,6 @@
 import React from 'react'
-import { House, BookOpen, CalendarDays, Wallet, CalendarPlus2, Trophy, NotebookText, UserRoundPen, LogOut } from 'lucide-react';
+import { House, BookOpen, CalendarDays, Wallet, CalendarPlus2, NotebookText, UserRoundPen, LogOut } from 'lucide-react';
+import { BookAlert  } from 'lucide-react';
 import { Outlet } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
@@ -76,7 +77,7 @@ const Dashboard = () => {
                         <p className='text-md '>Leaves</p>
                     </NavLink>
                     <NavLink
-                        to={'assignments'}
+                        to={'assignment'}
                         className={({ isActive }) =>
                             `dashmenu font-semibold p-2 mt-2 flex flex-row items-center gap-2 rounded-xl transition-colors duration-200 ${isActive ? 'bg-[#99b2f1] text-white' : 'text-[#6B7280]'
                             }`
@@ -86,14 +87,14 @@ const Dashboard = () => {
                         <p className='text-md '>Assignments</p>
                     </NavLink>
                     <NavLink
-                        to={'competitions'}
+                        to={'complaint'}
                         className={({ isActive }) =>
                             `dashmenu font-semibold p-2 mt-2 flex flex-row items-center gap-2 rounded-xl transition-colors duration-200 ${isActive ? 'bg-[#99b2f1] text-white' : 'text-[#6B7280]'
                             }`
                         }
                     >
-                        <Trophy size={20} className='' />
-                        <p className='text-md '>Competitons</p>
+                        <BookAlert   size={20} className='' />
+                        <p className='text-md '>Complaints</p>
                     </NavLink>
                     <NavLink
                         to={'profile'}

@@ -10,6 +10,8 @@ import Coursecontent from './pages/Student/Dashboard/pages/Coursecontent'
 import Attendence from './pages/Student/Dashboard/pages/Attendence'
 import Fees from './pages/Student/Dashboard/pages/Fees'
 import Leaves from './pages/Student/Dashboard/pages/Leaves'
+import Assignment from './pages/Student/Dashboard/pages/Assignment'
+import Complaint from './pages/Student/Dashboard/pages/Complaint'
 const App = () => {
   return (
     <>
@@ -24,6 +26,8 @@ const App = () => {
             <Route path='attendence' element={<Attendence />} />
             <Route path='fees' element={<Fees />} />
             <Route path='leaves' element={<Leaves />} />
+            <Route path='assignment' element={<Assignment />} />
+            <Route path='complaint' element={<Complaint />} />
           </Route>
         </Routes>
         <Routes>
