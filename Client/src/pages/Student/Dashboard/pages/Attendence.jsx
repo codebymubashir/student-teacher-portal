@@ -15,7 +15,7 @@ const Attendance = () => {
   ];
 
   return (
-    <div className="bg-[#F4F6FA] min-h-screen p-6 font-sans text-slate-800">
+    <div className="bg-[#F4F6FA] student min-h-screen p-6 font-sans text-slate-800">
       
       {/* Top Banner */}
       <div className="bg-[#9BB2F6] rounded-2xl p-6 text-slate-900 mb-6 shadow-sm flex justify-between items-center">

@@ -8,6 +8,7 @@ import Studentdashboard from './pages/Student/Dashboard/Dashboard'
 import Home from './pages/Student/Dashboard/pages/Home'
 import Coursecontent from './pages/Student/Dashboard/pages/Coursecontent'
 import Attendence from './pages/Student/Dashboard/pages/Attendence'
+import Fees from './pages/Student/Dashboard/pages/Fees'
 const App = () => {
   return (
     <>
@@ -20,6 +21,7 @@ const App = () => {
             <Route path='home' element={<Home />} />
             <Route path='content' element={<Coursecontent />} />
             <Route path='attendence' element={<Attendence />} />
+            <Route path='fees' element={<Fees />} />
           </Route>
         </Routes>
         <Routes>
