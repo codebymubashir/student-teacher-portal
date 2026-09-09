@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 const Dashboard = () => {
     return (
         <div className='flex'>
-            <div className='w-60 h-auto  shadow-xl rounded-2xl ml-4 mt-4  fixed'>
+            <div className='w-60 h-auto   shadow-xl rounded-2xl ml-4 mt-6  fixed'>
 
                 {/* main top logo and name of institute */}
                 <div className='w-full h-15 p-2  flex flex-row items-center gap-2   '>
@@ -46,7 +46,7 @@ const Dashboard = () => {
                         <p className='text-md '>Course Content</p>
                     </NavLink>
                     <NavLink
-                        to={'attendance'}
+                        to={'attendence'}
                         className={({ isActive }) =>
                             `dashmenu font-semibold p-2 mt-2 flex flex-row items-center gap-2 rounded-xl transition-colors duration-200 ${isActive ? 'bg-[#99b2f1] text-white' : 'text-[#6B7280]'
                             }`

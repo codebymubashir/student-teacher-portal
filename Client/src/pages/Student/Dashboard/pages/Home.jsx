@@ -20,7 +20,7 @@ const Home = () => {
 
     return (
         <>
-            <div className='w-full h-[140vh] relative bg-[#F5F6FA]'>
+            <div className='student w-full h-[140vh] relative bg-[#F5F6FA]'>
                 <div className='w-[80%] h-50 rounded-2xl ml-6 bg-[#99b2f1] p-4 mt-4 flex flex-row'>
 
                     <div className='homedp w-38 h-38 mt-2 ml-5 rounded-full  bg-white'></div>

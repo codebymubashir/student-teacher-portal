@@ -3,11 +3,11 @@ import React from 'react'
 const Subjectgraph = () => {
 
     const subjects = [
-        { name: 'Biology', value: 52 },
-        { name: 'Chemistry', value: 41 },
-        { name: 'Math', value: 58 },
-        { name: 'Urdu', value: 65 },
-        { name: 'English', value: 75 },
+        { name: 'HTML', value: 52 },
+        { name: 'CSS', value: 41 },
+        { name: 'Javascript', value: 58 },
+        { name: 'React Js', value: 65 },
+        { name: 'Docs', value: 75 },
     ]
     return (
         <div className='bg-white rounded-2xl shadow-sm p-5'>
