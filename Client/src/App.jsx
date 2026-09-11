@@ -1,10 +1,8 @@
 import React from 'react'
-import Loginstudent from './pages/Student/Login'
+import Login from './pages/Student/Login'
 import Registerstudent from './pages/Student/Register'
-import Instructions from './components/Instructions'
-import Loginteacher from './pages/Teacher/Login'
-import { Routes, Route } from 'react-router-dom'
-import Studentdashboard from './pages/Student/Dashboard/Dashboard'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import Dashboard from './pages/Student/Dashboard/Dashboard'
 import Home from './pages/Student/Dashboard/pages/Home'
 import Coursecontent from './pages/Student/Dashboard/pages/Coursecontent'
 import Attendence from './pages/Student/Dashboard/pages/Attendence'
@@ -13,16 +11,23 @@ import Leaves from './pages/Student/Dashboard/pages/Leaves'
 import Assignment from './pages/Student/Dashboard/pages/Assignment'
 import Complaint from './pages/Student/Dashboard/pages/Complaint'
 import Profile from './pages/Student/Dashboard/pages/Profile'
+import ProtectedRoute from './components/Protectedroute'
+import Students from './pages/Student/Dashboard/pages/Students'
+
 const App = () => {
   return (
-    <>
-      <div>
-        <Routes>
-          <Route path='/' element={<Instructions />} />
-          <Route path='/student/login' element={<Loginstudent />} />
-          <Route path='/student/register' element={<Registerstudent />} />
-          <Route path='/student/portal' element={<Studentdashboard />}>
+    <div>
+      <Routes>
+        {/* Public Routes */}
+        <Route path='/' element={<Login />} />
+        <Route path='/student/register' element={<Registerstudent />} />
+
+        {/* Protected Student Portal Routes */}
+        <Route element={<ProtectedRoute allowedRoles={['student','teacher']} />}>
+          <Route path='/portal' element={<Dashboard />}>
+            <Route index element={<Navigate to="home" replace />} />
             <Route path='home' element={<Home />} />
+            <Route path='students' element={<Students />} />
             <Route path='content' element={<Coursecontent />} />
             <Route path='attendence' element={<Attendence />} />
             <Route path='fees' element={<Fees />} />
@@ -31,12 +36,12 @@ const App = () => {
             <Route path='complaint' element={<Complaint />} />
             <Route path='profile' element={<Profile />} />
           </Route>
-        </Routes>
-        <Routes>
-          <Route path='/teacher/login' element={<Loginteacher />} />
-        </Routes>
-      </div>
-    </>
+        </Route>
+
+        {/* Catch-all redirect for undefined paths */}
+        <Route path='*' element={<Navigate to='/' replace />} />
+      </Routes>
+    </div>
   )
 }
 

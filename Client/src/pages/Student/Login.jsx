@@ -10,17 +10,41 @@ import { useNavigate } from 'react-router-dom';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { db } from '../../firebase';
+import { setUserSession } from '../../Backend/auth';
+
 const Login = () => {
 
 
     const [showPassword, setShowPassword] = useState(false)
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("")
+    const [role, setRole] = useState("student")
     const navigate = useNavigate();
+
+
+    // Hardcoded teacher login (no Firebase check)
+    const teacherLogin = () => {
+        const teacherEmail = "teacher@gmail.com";
+        const teacherPassword = "teacher1122";
+
+        if (email === teacherEmail && password === teacherPassword) {
+            setUserSession({ email: teacherEmail, name: "Teacher", role: "teacher" });
+            toast.success("Successfully Logged In");
+            setTimeout(() => navigate('/portal'), 1500);
+        } else {
+            toast.error("Invalid Teacher Credential");
+        }
+    };
 
 
     const handleLogin = async (e) => {
         e.preventDefault();
+
+        // Route to hardcoded check if "teacher" is selected
+        if (role === 'teacher') {
+            teacherLogin();
+            return;
+        }
 
         try {
             const userCrediential = await signInWithEmailAndPassword(auth, email, password);
@@ -29,8 +53,11 @@ const Login = () => {
             const studentDocRef = doc(db, "students", user.uid);
             const studentDocSnap = await getDoc(studentDocRef);
 
+            let userData = { uid: user.uid, email: user.email, role: role };
+
             if (studentDocSnap.exists()) {
                 const studentData = studentDocSnap.data();
+                userData = { ...userData, name: studentData.name };
                 toast.success(`Welcome back!  (${studentData.name})`)
 
             } else {
@@ -38,7 +65,9 @@ const Login = () => {
 
             }
 
-            setTimeout(() => navigate('/student/portal'), 1500)
+            setUserSession(userData);
+
+            setTimeout(() => navigate('/portal'), 1500)
 
         } catch (error) {
             toast.error("User does not exist")
@@ -52,9 +81,13 @@ const Login = () => {
     const signInWithGoogle = async () => {
         try {
             const result = await signInWithPopup(auth, provider);
+            const user = result.user;
+
+            setUserSession({ uid: user.uid, email: user.email, name: user.displayName, role: role });
+
             toast.success("Sign in successfully")
             setTimeout(() => {
-                navigate('/student/portal')
+                navigate('/portal')
             }, 1500);
         } catch (error) {
             console.log("Error sign in with google", error)
@@ -87,10 +120,21 @@ const Login = () => {
 
                             </div>
                             <div className='w-[50%] h-full'>
-                                <div className='w-full h-auto p-2  text-center mt-8 mb-7'>
-                                    <h2 className='text-4xl frances '>Student Portal</h2>
+                                <div className='w-full h-auto p-2  text-center mt-2 mb-2'>
+                                    <h2 className='text-2xl frances '>Portal</h2>
                                 </div>
                                 <form className="space-y-4" onSubmit={handleLogin}>
+                                    <div>
+                                        <label className="block  text-sm font-medium text-gray-700 mb-1 ml-2 frnaces ">Login as</label>
+                                        <select
+                                            value={role}
+                                            onChange={(e) => setRole(e.target.value)}
+                                            className="w-95 ml-2 px-4 py-1.5 border border-gray-300 rounded-2xl focus:outline-none focus:bg-[#e8f0fe] text-sm text-gray-700 bg-white">
+                                            <option value="student">Student</option>
+                                            <option value="teacher">Teacher</option>
+                                            <option value="admin">Admin</option>
+                                        </select>
+                                    </div>
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-1 ml-2 frnaces ">Email address</label>
                                         <input
@@ -132,7 +176,7 @@ const Login = () => {
                                     </div>
                                     <div onClick={signInWithGoogle} className='flex flex-row border-2 border-[#526db2] justify-center gap-5  cursor-pointer w-95 ml-2 rounded-full px-4 py-2 '>
                                         <p>Continue with Google</p>
-                                        <FcGoogle size={30} />
+                                        <FcGoogle size={25} />
                                     </div>
                                     <button
                                         type="submit"

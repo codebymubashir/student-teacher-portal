@@ -4,8 +4,14 @@ import { PieChart, Pie, Cell } from 'recharts'
 import { MoreHorizontal } from 'lucide-react'
 import UpcomingAssignments from '../../../../components/Upcomingassignments';
 import Subjectgraph from '../../../../components/Subjectgraph';
+import { getUser } from '../../../../Backend/auth';
 
 const Home = () => {
+
+    const user = getUser();
+    const userName = user?.name || "Student";
+    const usermail = user?.email || "Student";
+    const role = (user?.role || user?.userRole || 'student').toLowerCase();
 
     const gpa = 3.4
     const maxGpa = 4.0
@@ -25,8 +31,12 @@ const Home = () => {
 
                     <div className='homedp w-38 h-38 mt-2 ml-5 rounded-full  bg-white'></div>
                     <div className='w-[80%] h-full  pl-8'>
-                        <h2 className='text-4xl font-semibold monospace mt-2'>Welcome, Mubashir</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, repudiandae!</p>
+                        <h2 className='text-4xl font-semibold monospace mt-2'>Welcome, {userName}</h2>
+                        <p>
+                            {role === 'student'
+                                ? 'Track your daily attendance, manage tasks, and monitor your academic progress.'
+                                : 'Manage class attendance, review student submissions, and grade upcoming assignments.'}
+                        </p>
                         <div className='grid grid-cols-2 mt-6 ml-2'>
                             <div className='flex items-center gap-2'>
                                 <School className='font-extrabold' size={15} />
@@ -34,11 +44,11 @@ const Home = () => {
                             </div>
                             <div className='flex items-center gap-2'>
                                 <MailPlus className='font-extrabold' size={15} />
-                                <p>mubashir@gmail.com</p>
+                                <p>{usermail}</p>
                             </div>
                             <div className='flex items-center gap-2'>
                                 <CalendarDays className='font-extrabold' size={15} />
-                                <p>November,2026</p>
+                                <p>{new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</p>
                             </div>
                             <div className='flex items-center gap-2'>
                                 <Phone className='font-extrabold' size={15} />

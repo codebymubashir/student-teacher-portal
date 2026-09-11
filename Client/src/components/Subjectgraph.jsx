@@ -1,6 +1,11 @@
 import React from 'react'
+import { getUser } from '../Backend/auth';
+
 
 const Subjectgraph = () => {
+
+    const user = getUser();
+    const role = (user?.role || user?.userRole || 'student').toLowerCase();
 
     const subjects = [
         { name: 'HTML', value: 52 },
@@ -11,7 +16,11 @@ const Subjectgraph = () => {
     ]
     return (
         <div className='bg-white rounded-2xl shadow-sm p-5'>
-            <h3 className='text-xl font-bold mb-4'>Grade by Subject</h3>
+            <h3 className='text-xl font-bold mb-4'>
+                {role === 'student'
+                    ? 'Subject Grade'
+                    : 'MY Lectures'}
+            </h3>
 
             <div className='flex flex-col gap-3'>
                 {subjects.map((item) => (
