@@ -4,8 +4,15 @@ import { db } from '../../../../firebase';
 import { getUser } from '../../../../Backend/auth';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { markTaskCompleted, updateTasksInProgress } from '../../../../Backend/Statshelpers'
 
 const Attendance = () => {
+
+
+
+   
+
+
   const user = getUser();
   const role = (user?.role || user?.userRole || 'student').toLowerCase();
 

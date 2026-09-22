@@ -5,8 +5,10 @@ import { db } from '../../../../firebase';
 import { getUser } from '../../../../Backend/auth';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { markTaskCompleted, updateTasksInProgress } from '../../../../Backend/Statshelpers'
 
 const Assignment = () => {
+
   const user = getUser();
   const role = (user?.role || user?.userRole || 'student').toLowerCase();
 
@@ -118,6 +120,11 @@ const Assignment = () => {
         fileUrl: link,
         submittedAt: new Date().toISOString(),
       });
+
+      // Update dynamic stats on the student's document
+      await markTaskCompleted(user.uid);
+      await updateTasksInProgress(user.uid);
+
       toast.success('Assignment submitted');
       setSubmitLinks((prev) => ({ ...prev, [assignmentId]: '' }));
       fetchAll();

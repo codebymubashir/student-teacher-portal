@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { School, CalendarDays, Gift, Phone, MailPlus, Users, ListChecks, ClipboardCheck, Award } from 'lucide-react';
 import { PieChart, Pie, Cell } from 'recharts'
 import { MoreHorizontal } from 'lucide-react'
 import UpcomingAssignments from '../../../../components/Upcomingassignments';
 import Subjectgraph from '../../../../components/Subjectgraph';
 import { getUser } from '../../../../Backend/auth';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../../../firebase';
 
 const Home = () => {
 
@@ -12,6 +14,55 @@ const Home = () => {
     const userName = user?.name || "Student";
     const usermail = user?.email || "Student";
     const role = (user?.role || user?.userRole || 'student').toLowerCase();
+
+    // Dynamic stats state
+    const [stats, setStats] = useState({
+        attendance: 0,
+        tasksCompleted: 0,
+        tasksInProgress: 0,
+        rewardPoints: 0,
+    })
+
+    useEffect(() => {
+        const fetchStats = async () => {
+            try {
+                if (!user?.uid) return;
+
+                const collectionName = role === 'teacher' ? 'teachers' : 'students';
+                const docRef = doc(db, collectionName, user.uid);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+
+                    if (role === 'teacher') {
+                        setStats({
+                            attendance: data.classAttendance ?? 0,        // avg attendance across teacher's classes
+                            tasksCompleted: data.assignmentsGraded ?? 0,  // assignments graded so far
+                            tasksInProgress: data.pendingGrading ?? 0,    // assignments still to grade
+                            rewardPoints: data.studentsManaged ?? 0,      // total students under this teacher
+                        })
+                    } else {
+                        setStats({
+                            attendance: data.attendance ?? 0,
+                            tasksCompleted: data.tasksCompleted ?? 0,
+                            tasksInProgress: data.tasksInProgress ?? 0,
+                            rewardPoints: data.rewardPoints ?? 0,
+                        })
+                    }
+                }
+            } catch (error) {
+                console.log("Error fetching stats:", error)
+            }
+        }
+
+        fetchStats()
+    }, [user?.uid, role])
+
+    // Labels swap for teacher vs student
+    const statLabels = role === 'teacher'
+        ? ['Class Attendance', 'Assignments Graded', 'Pending Grading', 'Students Managed']
+        : ['Attendance', 'Task Completed', 'Task in Progress', 'Reward Points']
 
     const gpa = 3.4
     const maxGpa = 4.0
@@ -63,7 +114,7 @@ const Home = () => {
 
                 <div className='flex flex-row gap-4 ml-6 mt-4 items-start'>
 
-                    {/* student data  */}
+                    {/* dynamic stats  */}
 
                     <div className='w-[45%] grid grid-cols-2 gap-4'>
 
@@ -73,8 +124,8 @@ const Home = () => {
                                     <Users size={20} className='text-blue-500' />
                                 </div>
                                 <div>
-                                    <p className='text-black text-xl font-bold leading-none'>97%</p>
-                                    <p className='text-gray-400 text-sm mt-1'>Attendance</p>
+                                    <p className='text-black text-xl font-bold leading-none'>{stats.attendance}%</p>
+                                    <p className='text-gray-400 text-sm mt-1'>{statLabels[0]}</p>
                                 </div>
                             </div>
                         </div>
@@ -85,8 +136,8 @@ const Home = () => {
                                     <ListChecks size={20} className='text-indigo-500' />
                                 </div>
                                 <div>
-                                    <p className='text-black text-xl font-bold leading-none'>258+</p>
-                                    <p className='text-gray-400 text-sm mt-1'>Task Completed</p>
+                                    <p className='text-black text-xl font-bold leading-none'>{stats.tasksCompleted}{role === 'student' ? '+' : ''}</p>
+                                    <p className='text-gray-400 text-sm mt-1'>{statLabels[1]}</p>
                                 </div>
                             </div>
                         </div>
@@ -97,8 +148,8 @@ const Home = () => {
                                     <ClipboardCheck size={20} className='text-amber-500' />
                                 </div>
                                 <div>
-                                    <p className='text-black text-xl font-bold leading-none'>64%</p>
-                                    <p className='text-gray-400 text-sm mt-1'>Task in Progress</p>
+                                    <p className='text-black text-xl font-bold leading-none'>{stats.tasksInProgress}{role === 'student' ? '%' : ''}</p>
+                                    <p className='text-gray-400 text-sm mt-1'>{statLabels[2]}</p>
                                 </div>
                             </div>
                         </div>
@@ -109,8 +160,8 @@ const Home = () => {
                                     <Award size={20} className='text-pink-500' />
                                 </div>
                                 <div>
-                                    <p className='text-black text-xl font-bold leading-none'>245</p>
-                                    <p className='text-gray-400 text-sm mt-1'>Reward Points</p>
+                                    <p className='text-black text-xl font-bold leading-none'>{stats.rewardPoints}</p>
+                                    <p className='text-gray-400 text-sm mt-1'>{statLabels[3]}</p>
                                 </div>
                             </div>
                         </div>
